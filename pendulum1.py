@@ -3,7 +3,7 @@ first_name = 'Malgorzata' # TODO
 last_name = 'Synak' # TODO
 hand_in = False # TODO: set to True and run again before hand_in. Hand_in also the output* file
 
-import sys
+import sys   
 import os
 if hand_in:
     filename = os.path.basename(__file__).split('.')[0]
@@ -40,7 +40,7 @@ def reference_solver(rhs, T, y0):
     )
     return result.y[:, -1]
 
-
+#hellooo
 
 def eE(rhs, y0 , T, N):
     y = np.zeros((N+1,) + y0.shape)
