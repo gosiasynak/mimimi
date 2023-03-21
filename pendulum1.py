@@ -42,7 +42,7 @@ def reference_solver(rhs, T, y0):
 
 
 
-def eE(r, y0 , T, N):
+def eE(rhs, y0 , T, N):
     y = np.zeros((N+1,) + y0.shape)
     y[0,:] = y0 
     
@@ -52,13 +52,24 @@ def eE(r, y0 , T, N):
         y[k+1,:] = y[k,:] + h * rhs(t[k], y[k,:])
     return t, y
 
-def iE(r, y0 , T, N):
+def iE(rhs, y0 , T, N):
+    
+    y = np.zeros((N+1,) + y0.shape)
+    y[0,:] = y0 # Startwert initialisieren
+    
+    t, h = np.linspace(0, T, N+1, retstep=True)
+    
+    for k in range(N):
+        F = lambda x: x - y[k,:] - h*rhs(t[k+1], x)
+        y[k+1,:] = fsolve(F, y[k,:] + h*rhs(t[k], y[k,:]))
+
+    return t, y
+
+    
+def iM(rhs, y0 , T, N):
     return
     
-def iM(r, y0 , T, N):
-    return
-    
-def vV(r, y0 , T, N):
+def vV(rhs, y0 , T, N):
     return
     
     
