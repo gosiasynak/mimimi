@@ -67,9 +67,24 @@ def iE(rhs, y0 , T, N):
 
     
 def iM(rhs, y0 , T, N):
-    return
+    y = np.zeros((N+1,) + y0.shape)
+    y[0,:] = y0 # Startwert initialisieren
+    
+    t, h = np.linspace(0, T, N+1, retstep=True)
+    
+    for k in range(N):
+        F = lambda x: x - y[k,:] - h*rhs(0.5*(t[k+1]+t[k]), 0.5*(x + y[k,:]))
+        y[k+1,:] = fsolve(F, y[k,:] + h*rhs(t[k], y[k,:]))
+
+    
+    return t, y
     
 def vV(rhs, y0 , T, N):
+    y = np.zeros((N+1,) + y0.shape)
+    y[0,:] = y0 # Startwert initialisieren
+    
+    t, h = np.linspace(0, T, N+1, retstep=True)
+    
     return
     
     
